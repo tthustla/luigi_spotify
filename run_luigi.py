@@ -1,4 +1,3 @@
-# Filename: run_luigi.py
 import luigi
 from luigi.contrib.s3 import S3Target, S3Client
 import spotipy
@@ -43,7 +42,7 @@ class GetWeeklyTracks(luigi.Task):
  
     def output(self):
         client = S3Client()
-        return S3Target('s3://luigi-test01/{}/weekly_tracks.tsv'.format(strftime("%Y-%m-%d %H:%M:%S")), client=client)
+        return S3Target('s3://luigi-spotify/{}/weekly_tracks.tsv'.format(strftime("%Y-%m-%d")), client=client)
  
     def run(self):
         with self.output().open('w') as f:
@@ -75,7 +74,7 @@ class SendWeeklyEmail(luigi.Task):
  
     def output(self):
         client = S3Client()
-        return S3Target('s3://luigi-test01/{}/email_sent_status.txt'.format(strftime("%Y-%m-%d %H:%M:%S")), client=client)
+        return S3Target('s3://luigi-spotify/{}/email_sent_status.txt'.format(strftime("%Y-%m-%d")), client=client)
  
     def run(self):
         email = gmail().id
