@@ -52,7 +52,7 @@ class GetWeeklyTracks(luigi.Task):
             results = sp.current_user_playlists()
             for i in results['items']:
                 if i['name'] == 'Discover Weekly':
-                    tracks = sp.user_playlist_tracks("tthustla", playlist_id=i['id'])
+                    tracks = sp.user_playlist_tracks(spotify_user, playlist_id=i['id'])
                     for t in tracks['items']:
                         track_id = t['track']['id']
                         track_name = t['track']['name']
